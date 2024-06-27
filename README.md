@@ -2,7 +2,7 @@
 
 ## todo
 
-- [ ] make student login page
+- [X] make student login page
 - [ ] make admin login page
 - [ ] make grievance feed page
 - [ ] make dynamic grievance info page
