@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id           String     @id @default(uuid())
+  username     String
+  password     String
+  email        String?    @unique
+  phone_no     Int?       @unique
+  semester     Int
+  departmentId String
+  Department   Department @relation(fields: [departmentId], references: [id])
+}
+
+model Department {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  Student Student[]
+  Admin   Admin[]
+}
+
+model Admin {
+  id                   String                @id @default(uuid())
+  username             String                @unique
+  password             String
+  email                String                @unique
+  departmentId         String
+  Department           Department            @relation(fields: [departmentId], references: [id])
+  GrievanceAssignments GrievanceAssignments?
+}
+
+model Grievances {
+  id                   String                @id @default(uuid())
+  title                String
+  desc                 String
+  categoryId           String
+  submissionDate       DateTime              @default(now())
+  resolutionDate       DateTime
+  status               Status
+  Category             Category              @relation(fields: [categoryId], references: [id])
+  GrievanceComments    GrievanceComments[]
+  GrievanceAssignments GrievanceAssignments?
+}
+
+enum Status {
+  Open
+  InProgress
+  Resolved
+  Closed
+}
+
+model Category {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  desc       String
+  Grievances Grievances[]
+}
+
+model GrievanceComments {
+  id          String     @id @default(uuid())
+  grievanceId String
+  text        String
+  date        DateTime   @default(now())
+  Grievances  Grievances @relation(fields: [grievanceId], references: [id])
+}
+
+model GrievanceAssignments {
+  id          String     @id @default(uuid())
+  adminId     String     @unique
+  grievanceId String     @unique
+  Admin       Admin      @relation(fields: [adminId], references: [id])
+  Grievances  Grievances @relation(fields: [grievanceId], references: [id])
+}
