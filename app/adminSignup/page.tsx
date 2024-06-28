@@ -19,12 +19,15 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { AdminType, DepartmentType } from "@/zod/schema";
+import { Admin, DepartmentType } from "@/zod/schema";
 import { getAllDepartments } from "@/lib/db/dept";
+import { createAdmin } from "@/lib/db/admin";
+import Link from "next/link";
 
 export default function Component() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [departmentArray, setDepartmentArray] = useState<DepartmentType[]>([]);
   const [department, setDepartment] = useState<DepartmentType>();
 
@@ -35,6 +38,29 @@ export default function Component() {
     }
     displayDepartments();
   }, []);
+
+  async function handleSubmit() {
+    console.log(username, password, department, email);
+    const admin = Admin.safeParse({
+      id: crypto.randomUUID(),
+      username,
+      password,
+      email,
+      departmentId: department?.id, //dept id not dept name
+    });
+
+    if (admin.success) {
+      const response = await createAdmin(admin.data);
+      alert("Admin created successfully");
+    } else {
+      alert("unable to create admin");
+    }
+
+    setUsername("");
+    setPassword("");
+    setEmail("");
+    setDepartment(undefined);
+  }
 
   /*
    * there is some error that if i select the department check if the value is getting registered
@@ -50,7 +76,7 @@ export default function Component() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
             <Input
@@ -76,11 +102,28 @@ export default function Component() {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="department">Department</Label>
             <Select
               name="department"
-              onValueChange={(e) => setDepartment(e)}
-              value={department?.name}
+              onValueChange={(value) => {
+                const selectedDept = departmentArray.find(
+                  (dept) => dept.name === value
+                );
+                setDepartment(selectedDept);
+              }}
+              value={department?.name || ""}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a department" />
@@ -99,10 +142,12 @@ export default function Component() {
         </CardContent>
 
         <CardFooter className="flex justify-between items-center gap-4">
-          <Button variant="outline" className="flex-1">
-            Sign In
-          </Button>
-          <Button type="submit" className="flex-1">
+          <Link href="/adminLogin" className="flex-1">
+            <Button variant="outline" className="w-full">
+              Sign In
+            </Button>
+          </Link>
+          <Button type="submit" className="flex-1" onClick={handleSubmit}>
             Sign Up
           </Button>
         </CardFooter>
