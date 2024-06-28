@@ -4,12 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import prisma from "@/lib/db";
 import { useState } from "react";
-import { Department } from "@prisma/client";
 import Link from "next/link";
 import { MouseEvent } from "react";
-import { StudentType } from "@/zod/schema";
 import { getStudentByName } from "@/lib/db/students";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
@@ -17,7 +14,6 @@ import { useRouter } from "next/navigation";
 export default function StudentLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [departments, setDepartments] = useState<Department[]>([]);
   const router = useRouter();
 
   async function handleSubmit(
@@ -30,7 +26,9 @@ export default function StudentLogin() {
     } else if (user.password !== password) {
       alert("Wrong Password");
     } else {
-      router.replace("grievanceFeed");
+      setUsername("");
+      setPassword("");
+      router.replace("/grievanceFeed");
     }
   }
 
@@ -41,7 +39,7 @@ export default function StudentLogin() {
         <Card className="w-full max-w-md border-2 shadow-xl p-10">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center mb-2">
-              Login
+              Student Login
             </CardTitle>
           </CardHeader>
 

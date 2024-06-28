@@ -49,7 +49,7 @@ model Grievances {
   submissionDate       DateTime              @default(now())
   resolutionDate       DateTime
   status               Status
-  Category             Category              @relation(fields: [categoryId], references: [id])
+  Category             GrievanceCategory     @relation(fields: [categoryId], references: [id])
   GrievanceComments    GrievanceComments[]
   GrievanceAssignments GrievanceAssignments?
 }
@@ -61,7 +61,7 @@ enum Status {
   Closed
 }
 
-model Category {
+model GrievanceCategory {
   id         String       @id @default(uuid())
   name       String       @unique
   desc       String

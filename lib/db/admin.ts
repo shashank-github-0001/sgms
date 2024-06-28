@@ -1,4 +1,6 @@
-import { Admin, AdminType } from "@/app/_zod/schema";
+"use server";
+
+import { Admin, AdminType } from "@/zod/schema";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -11,6 +13,12 @@ export async function createAdmin(data: AdminType) {
 export async function getAdmin(id: string) {
   return await prisma.admin.findUnique({
     where: { id },
+  });
+}
+
+export async function getAdminByName(username: string) {
+  return await prisma.admin.findUnique({
+    where: { username },
   });
 }
 

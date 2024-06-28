@@ -48,13 +48,13 @@ export const Grievances = z.object({
 
 export type GrievancesType = z.infer<typeof Grievances>;
 
-export const Category = z.object({
+export const GrievanceCategory = z.object({
   id: z.string().uuid(),
   name: z.string(),
   desc: z.string(),
 });
 
-export type CategoryType = z.infer<typeof Category>;
+export type GrievanceCategoryType = z.infer<typeof GrievanceCategory>;
 
 export const GrievanceComments = z.object({
   id: z.string().uuid(),

@@ -4,6 +4,7 @@
 
 - [X] make student login page
 - [ ] make admin login page
+- [ ] hard code a few departments, grievance categories and student accounts and admin accounts
 - [ ] make grievance feed page
 - [ ] make dynamic grievance info page
 - [ ] make a page in admins route for editing departments and grievances types

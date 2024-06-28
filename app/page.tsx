@@ -1,5 +1,4 @@
-import Image from "next/image";
+import { GrievanceCategoryType } from "@/zod/schema";
+import { prisma } from "@/lib/db";
 
-export default function Home() {
-  return <div>hello from /</div>;
-}
+export default async function Home() {}
