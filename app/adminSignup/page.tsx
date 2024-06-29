@@ -29,7 +29,7 @@ export default function Component() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [departmentArray, setDepartmentArray] = useState<DepartmentType[]>([]);
-  const [department, setDepartment] = useState<DepartmentType>();
+  const [department, setDepartment] = useState("");
 
   useEffect(() => {
     async function displayDepartments() {
@@ -46,7 +46,7 @@ export default function Component() {
       username,
       password,
       email,
-      departmentId: department?.id, //dept id not dept name
+      departmentId: department,
     });
 
     if (admin.success) {
@@ -59,12 +59,8 @@ export default function Component() {
     setUsername("");
     setPassword("");
     setEmail("");
-    setDepartment(undefined);
+    setDepartment("");
   }
-
-  /*
-   * there is some error that if i select the department check if the value is getting registered
-   */
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-background">
@@ -117,13 +113,7 @@ export default function Component() {
             <Label htmlFor="department">Department</Label>
             <Select
               name="department"
-              onValueChange={(value) => {
-                const selectedDept = departmentArray.find(
-                  (dept) => dept.name === value
-                );
-                setDepartment(selectedDept);
-              }}
-              value={department?.name || ""}
+              onValueChange={(value) => setDepartment(value)}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a department" />
@@ -131,7 +121,7 @@ export default function Component() {
               <SelectContent>
                 <SelectGroup>
                   {departmentArray.map((dept) => (
-                    <SelectItem key={dept.id} value={dept.name}>
+                    <SelectItem key={dept.id} value={dept.id}>
                       {dept.name}
                     </SelectItem>
                   ))}

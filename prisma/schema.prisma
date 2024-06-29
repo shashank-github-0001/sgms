@@ -17,9 +17,9 @@ model Student {
   id           String     @id @default(uuid())
   username     String
   password     String
-  email        String?    @unique
-  phone_no     Int?       @unique
-  semester     Int
+  email        String     @unique
+  phone_no     String     @unique
+  semester     String
   departmentId String
   Department   Department @relation(fields: [departmentId], references: [id])
 }
