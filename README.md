@@ -3,8 +3,9 @@
 ## todo
 
 - [X] make student login page
-- [ ] make admin login page
-- [ ] hard code a few departments, grievance categories and student accounts and admin accounts
+- [X] make admin login page
+- [X] hard code a few departments, grievance categories and student accounts and admin accounts
+- [ ] try to make a json solution for having state if you are a admin or a student.
 - [ ] make grievance feed page
 - [ ] make dynamic grievance info page
 - [ ] make a page in admins route for editing departments and grievances types
