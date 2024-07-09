@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id           String       @id @default(uuid())
+  username     String
+  password     String
+  email        String       @unique
+  semester     String
+  departmentId String
+  Department   Department   @relation(fields: [departmentId], references: [id])
+  Grievances   Grievances[]
+}
+
+model Department {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  Student Student[]
+}
+
+model Grievances {
+  id                String              @id @default(uuid())
+  title             String
+  desc              String
+  studentId         String
+  categoryId        String
+  status            Status
+  Student           Student             @relation(fields: [studentId], references: [id])
+  Category          GrievanceCategory   @relation(fields: [categoryId], references: [id])
+  GrievanceComments GrievanceComments[]
+}
+
+enum Status {
+  Open
+  InProgress
+  Resolved
+  Closed
+}
+
+model GrievanceCategory {
+  id         String       @id @default(uuid())
+  name       String       @unique
+  desc       String
+  Grievances Grievances[]
+}
+
+model GrievanceComments {
+  id          String     @id @default(uuid())
+  grievanceId String
+  text        String
+  date        DateTime   @default(now())
+  Grievances  Grievances @relation(fields: [grievanceId], references: [id])
+}
