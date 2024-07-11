@@ -49,7 +49,7 @@ export const GrievanceComments = z.object({
   id: z.string().uuid(),
   grievanceId: z.string().uuid(),
   text: z.string().min(20),
-  date: z.date(),
+  date: z.string(),
 });
 
 export type GrievanceCommentsType = z.infer<typeof GrievanceComments>;

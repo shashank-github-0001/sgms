@@ -4,17 +4,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { verifyLogin } from "@/lib/db/login";
 import { redirect } from "next/navigation";
-import { storeCookie } from "@/lib/db/storecookie";
 
-const Main = () => {
+const adminLogin = () => {
   const handleSubmit = async (formData: FormData) => {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
-    const res = await verifyLogin(username as string, password as string);
-    if (res) {
-      storeCookie(res);
+    if (username == "admin" && password == "admin") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("admin");
+      localStorage.setItem("admin", JSON.stringify("admin"));
       redirect("/home");
     } else {
       redirect("/signup");
@@ -26,10 +25,10 @@ const Main = () => {
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Student Login
+            Admin Login
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Enter your credentials to access your account.
+            Enter admin credentials to access as an admin
           </p>
         </div>
         <Card>
@@ -75,4 +74,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default adminLogin;

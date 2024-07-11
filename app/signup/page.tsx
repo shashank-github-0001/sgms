@@ -12,6 +12,7 @@ import { Student } from "@prisma/client";
 import { signUp } from "@/lib/db/signup";
 import { storeCookie } from "@/lib/db/storecookie";
 import prisma from "@/lib/db/db";
+import { redirect } from "next/navigation";
 const Signup = async () => {
   const departments = await prisma.department.findMany();
   const handleSignUp = async (formData: FormData) => {
@@ -30,7 +31,7 @@ const Signup = async () => {
       departmentId: department as string,
     };
     const res = await signUp(data);
-    if (res) storeCookie(data);
+    if (res) redirect("/");
     else alert("not able to create user please refresh or restart the server");
   };
   return (

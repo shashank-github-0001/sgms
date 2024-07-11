@@ -54,6 +54,6 @@ model GrievanceComments {
   id          String     @id @default(uuid())
   grievanceId String
   text        String
-  date        DateTime   @default(now())
+  date        String
   Grievances  Grievances @relation(fields: [grievanceId], references: [id])
 }
