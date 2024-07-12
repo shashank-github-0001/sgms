@@ -32,7 +32,8 @@ const Comments = (props: Props) => {
         date: `${year}-${month}-${day} ${hours}:${minute}`,
       };
       const res = await createGrievanceComments(comment);
-      setComments([comment, ...comments]);
+      if (!res) alert("not able to send comment to the db");
+      setComments([...comments, comment]);
       setNewComment("");
     }
   };
@@ -49,13 +50,13 @@ const Comments = (props: Props) => {
           </div>
         ))}
       </CardContent>
-      <div className="absolute bottom-0 left-0 w-full bg-background px-4 py-2 border-t">
-        <div className="flex items-center">
+      <div className="absolute bottom-0 left-0 w-full bg-background px-4 py-2 border-t rounded-xl gap-6">
+        <div className="flex items-center rounded gap-6">
           <Input
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Add a comment..."
-            className="flex-1"
+            className="flex-1 rounded"
           />
           <Button onClick={handleCommentSubmit}>Submit</Button>
         </div>

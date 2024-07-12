@@ -19,9 +19,9 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
   const router = useRouter();
   const [form, setForm] = useState<Grievances>({
     id: crypto.randomUUID() as string,
-    title: "",
-    desc: "",
-    categoryId: "",
+    title: "" as string,
+    desc: "" as string,
+    categoryId: "" as string,
     studentId: "" as string,
     status: "Open" as Status,
   });
@@ -38,13 +38,13 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
 
   return (
     <section className="w-full max-w-md mx-auto py-12 md:py-24">
-      <div className="px-4 md:px-6">
+      <div className="px-4 md:px-6 border shadow-sm p-8">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">
             Add Your Grievances Here
           </h1>
         </div>
-        <div className="grid gap-2">
+        <div className="grid gap-2 mb-4">
           <Label htmlFor="title">Title</Label>
           <Input
             name="title"
@@ -54,7 +54,7 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
             required
           />
         </div>
-        <div className="grid gap-2">
+        <div className="grid gap-2 mb-4">
           <Label htmlFor="description">Description</Label>
           <Textarea
             name="description"
@@ -65,7 +65,7 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
             required
           />
         </div>
-        <div className="grid gap-2 mb-2">
+        <div className="grid gap-2 mb-4">
           <Label htmlFor="category">Category</Label>
           <Select
             name="category"

@@ -1,3 +1,4 @@
+"force-dynamic";
 import InfoCard from "./InfoCard";
 import Comments from "./Comments";
 import { getGrievances } from "@/lib/db/grievance";
@@ -14,7 +15,7 @@ const Grievance = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className="flex w-screen h-screen">
-        <div className="w-1/2 p-4">
+        <div className="w-1/2 p-8">
           <InfoCard
             grievance={grievance as Grievances}
             category={cat as GrievanceCategory}
@@ -22,7 +23,7 @@ const Grievance = async ({ params }: { params: { id: string } }) => {
           />
         </div>
 
-        <div className="w-1/2 p-4">
+        <div className="w-1/2 p-8">
           <Comments
             grievanceId={params.id}
             comments={comments}

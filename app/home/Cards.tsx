@@ -34,7 +34,7 @@ const Cards = ({
   const router = useRouter();
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-start mb-6 gap-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">Filter by Type</Button>

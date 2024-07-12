@@ -14,9 +14,7 @@ export async function getGrievances(id: string) {
 }
 
 export async function createGrievances(data: Grievancetype) {
-  const grievance = Grievances.safeParse(data);
-  if (grievance.success) return await prisma.grievances.create({ data });
-  else return null;
+  return await prisma.grievances.create({ data });
 }
 
 export async function deleteGrievances(id: string) {

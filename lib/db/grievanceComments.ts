@@ -1,11 +1,13 @@
-import { GrievanceComments, GrievanceCommentsType } from "@/zod/schema";
-import { PrismaClient } from "@prisma/client";
+"use server";
+import { GrievanceComments } from "@/zod/schema";
+import {
+  GrievanceComments as GrievanceCommentsType,
+  PrismaClient,
+} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function createGrievanceComments(data: GrievanceCommentsType) {
-  const grievance = GrievanceComments.safeParse(data);
-  if (grievance.success) return await prisma.grievanceComments.create({ data });
-  else return false;
+  return await prisma.grievanceComments.create({ data });
 }
 
 export async function getGrievanceComments(id: string) {
