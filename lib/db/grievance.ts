@@ -26,8 +26,13 @@ export async function deleteGrievances(id: string) {
 }
 
 export async function updateGrievances(id: string, data: Grievancetype) {
-  const grievance = Grievances.safeParse(data);
-  if (grievance.success)
-    return await prisma.grievances.update({ where: { id }, data });
-  else return false;
+  return await prisma.grievances.update({ where: { id }, data });
+}
+
+export async function getStudentsGrievances(id: string) {
+  return await prisma.grievances.findMany({
+    where: {
+      studentId: id,
+    },
+  });
 }

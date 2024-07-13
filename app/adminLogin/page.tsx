@@ -14,7 +14,7 @@ const adminLogin = () => {
       localStorage.removeItem("user");
       localStorage.removeItem("admin");
       localStorage.setItem("admin", JSON.stringify("admin"));
-      redirect("/home");
+      redirect("/adminPage");
     } else {
       redirect("/signup");
     }

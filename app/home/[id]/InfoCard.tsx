@@ -66,7 +66,7 @@ const InfoCard = (props: Props) => {
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="open">Open</SelectItem>
+                <SelectItem value="Open">Open</SelectItem>
                 <SelectItem value="InProgress">In Progress</SelectItem>
                 <SelectItem value="Resolved">Resolved</SelectItem>
                 <SelectItem value="Closed">Closed</SelectItem>

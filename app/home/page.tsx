@@ -28,7 +28,7 @@ const Home = async () => {
             </li>
             <li>
               <Link href={"/"}>
-                <Button variant={"secondary"} className="font-bold text-lg">
+                <Button variant={"secondary"} className="text-md">
                   LogOut
                 </Button>
               </Link>
