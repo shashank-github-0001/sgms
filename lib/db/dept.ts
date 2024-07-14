@@ -10,11 +10,16 @@ export async function createDepartment(data: DepartmentType) {
 }
 
 export async function deleteDepartment(id: string) {
-  const department = await prisma.department.count({ where: { id } });
-  if (department > 0) return await prisma.department.delete({ where: { id } });
-  else throw new Error("no records found to delete the department");
+  return await prisma.department.delete({ where: { id } });
 }
 
 export async function getAllDepartments() {
   return await prisma.department.findMany();
+}
+
+export async function updateDept(id: string, data: DepartmentType) {
+  const parseddata = Department.safeParse(data);
+  if (parseddata.success)
+    return await prisma.department.update({ where: { id }, data });
+  else return false;
 }

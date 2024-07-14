@@ -18,8 +18,16 @@ export async function getGrievanceCategory(id: string) {
 }
 
 export async function deleteGrievanceCategory(id: string) {
-  const count = await prisma.grievanceCategory.count({ where: { id } });
-  if (count > 0)
-    return await prisma.grievanceCategory.delete({ where: { id } });
-  else throw new Error("no records found to delete the category");
+  return await prisma.grievanceCategory.delete({ where: { id } });
+}
+
+export async function updateGrievanceCategory(
+  id: string,
+  data: GrievanceCategoryType
+) {
+  const res = await prisma.grievanceCategory.update({
+    where: { id },
+    data,
+  });
+  return res;
 }

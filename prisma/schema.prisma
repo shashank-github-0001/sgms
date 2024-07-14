@@ -14,7 +14,7 @@ model Student {
   email        String       @unique
   semester     String
   departmentId String
-  Department   Department   @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  Department   Department   @relation(fields: [departmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Grievances   Grievances[]
 }
 
@@ -31,8 +31,8 @@ model Grievances {
   studentId         String
   categoryId        String
   status            Status
-  Student           Student             @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  Category          GrievanceCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  Student           Student             @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Category          GrievanceCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   GrievanceComments GrievanceComments[]
 }
 
@@ -55,5 +55,5 @@ model GrievanceComments {
   grievanceId String
   text        String
   date        String
-  Grievances  Grievances @relation(fields: [grievanceId], references: [id], onDelete: Cascade)
+  Grievances  Grievances @relation(fields: [grievanceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

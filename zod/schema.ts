@@ -5,7 +5,6 @@ export const Student = z.object({
   username: z.string(),
   password: z.string(),
   email: z.string().email(),
-  phone_no: z.string(),
   semester: z.string(),
   departmentId: z.string().uuid(),
 });
