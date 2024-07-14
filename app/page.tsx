@@ -7,9 +7,10 @@ import Link from "next/link";
 import { verifyLogin } from "@/lib/db/login";
 import { storeCookie } from "@/lib/db/storecookie";
 import { useRouter } from "next/navigation";
-import IsAuthed from "@/lib/auth/auth";
+import { useAuth } from "@/lib/auth/auth";
 
 const Main = () => {
+  const { login } = useAuth();
   const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
     const username = formData.get("username") as string;
@@ -17,8 +18,10 @@ const Main = () => {
     const res = await verifyLogin(username as string, password as string);
     if (res !== "admin" && res) {
       storeCookie(res);
+      login();
       router.replace("/home");
     } else if (res === "admin") {
+      login();
       router.replace("/adminPage");
     } else {
       router.replace("/signup");

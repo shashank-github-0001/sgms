@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { GrievanceCategory, Grievances, Status, Student } from "@prisma/client";
 import { updateGrievances } from "@/lib/db/grievance";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   grievance: Grievances;
@@ -57,7 +58,14 @@ const InfoCard = (props: Props) => {
           </div>
           <div className="space-y-2">
             <Label htmlFor="grievance-author">Grievance Author</Label>
-            <p id="grievance-author">{props.student.username}</p>
+            <p id="grievance-author">
+              <Link
+                href={`/studentInfo/${props.student.id}`}
+                className="hover:underline"
+              >
+                {props.student.username}
+              </Link>
+            </p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="grievance-status">Grievance Status</Label>

@@ -10,7 +10,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Student } from "@prisma/client";
 import { signUp } from "@/lib/db/signup";
-import { storeCookie } from "@/lib/db/storecookie";
 import prisma from "@/lib/db/db";
 import { redirect } from "next/navigation";
 const Signup = async () => {

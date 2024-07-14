@@ -22,6 +22,8 @@ import {
   DropdownMenuRadioGroup,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth/auth";
+
 const Cards = ({
   catArray,
   grievanceArray,
@@ -31,7 +33,13 @@ const Cards = ({
 }) => {
   const [filterType, setFilterType] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
+  const { login, logout, isAuthed } = useAuth();
   const router = useRouter();
+
+  if (!isAuthed) {
+    router.replace("/");
+  }
+
   return (
     <>
       <div className="flex justify-start mb-6 gap-6">

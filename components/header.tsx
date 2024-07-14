@@ -2,24 +2,21 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect } from "react";
+import { useAuth } from "@/lib/auth/auth";
 
 const Header = () => {
   const router = useRouter();
-
-  // useLayoutEffect(() => {
-  //   const user = localStorage.getItem("user");
-  //   const admin = localStorage.getItem("admin");
-  //   if (!user && !admin) {
-  //     router.replace("/");
-  //   }
-  // }, [router]);
+  const { logout, isAuthed } = useAuth();
 
   const Logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("admin");
+    logout();
     router.replace("/");
   };
+
+  if (!isAuthed) router.replace("/");
+
   return (
     <header className="bg-primary text-primary-foreground py-4 px-6">
       <nav className="flex justify-between items-center">
@@ -39,11 +36,7 @@ const Header = () => {
           </li>
           <li>
             <Link href={"/"}>
-              <Button
-                variant={"secondary"}
-                className="font-bold text-lg"
-                onClick={Logout}
-              >
+              <Button variant={"secondary"} onClick={Logout}>
                 LogOut
               </Button>
             </Link>

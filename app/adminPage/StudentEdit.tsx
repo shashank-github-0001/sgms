@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/lib/auth/auth";
 import { deleteStudent, updateStudent } from "@/lib/db/students";
 
 import { Department, Student } from "@prisma/client";

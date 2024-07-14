@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { deleteDepartment, updateDept } from "@/lib/db/dept";
+import { createDepartment, deleteDepartment, updateDept } from "@/lib/db/dept";
 import { DepartmentType } from "@/zod/schema";
 import { Department } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
@@ -53,7 +53,7 @@ const DepartmentEdit = (props: Props) => {
         router.replace("/adminPage");
         setDepartment({ id: "", name: "" });
       } else alert("not able to update department");
-    }
+    } else alert("department might alerady exist");
   };
 
   const Delete = async () => {
@@ -64,6 +64,20 @@ const DepartmentEdit = (props: Props) => {
     }
   };
 
+  const Add = async () => {
+    if (
+      department.name !== "" &&
+      !props.departments.find((dept) => dept.name === department.name)
+    ) {
+      const data = {
+        id: crypto.randomUUID(),
+        name: department.name,
+      };
+      const res = await createDepartment(data);
+      if (res) router.replace("/adminPage");
+      else alert("not able to create department");
+    }
+  };
   return (
     <Card className="p-4 w-[60%] mx-auto text-center">
       <CardHeader>
@@ -103,6 +117,7 @@ const DepartmentEdit = (props: Props) => {
         <div className="flex justify-between w-[80%] items-center mx-auto">
           <Button onClick={Update}>Update</Button>
           <Button onClick={Delete}>Delete</Button>
+          <Button onClick={Add}>Add</Button>
         </div>
       </CardFooter>
     </Card>

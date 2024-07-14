@@ -14,8 +14,10 @@ import { createGrievances } from "@/lib/db/grievance";
 import { GrievanceCategory, Grievances, Status } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth/auth";
 
 const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
+  const { isAuthed } = useAuth();
   const router = useRouter();
   const [form, setForm] = useState<Grievances>({
     id: crypto.randomUUID() as string,

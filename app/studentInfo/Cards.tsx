@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/auth/auth";
 
 type Props = {
   students: Student[];
@@ -23,8 +24,10 @@ const Cards = (props: Props) => {
     const dep = props.department.find((dep) => dep.id === id);
     return dep?.name;
   };
-
+  const { isAuthed } = useAuth();
   const router = useRouter();
+
+  if (!isAuthed) router.replace("/");
   return (
     <div className="grid grid-cols-4 gap-6 w-screen p-4">
       {props.students?.map((student) => (

@@ -4,6 +4,7 @@ import { getAllDepartments } from "@/lib/db/dept";
 import DepartmentEdit from "./DepartmentEdit";
 import GrievanceCat from "./GrievanceCat";
 import { getAllGrievanceCategory } from "@/lib/db/category";
+import Header from "@/components/header";
 
 const adminPage = async () => {
   const students = await getAllStudents();
@@ -11,6 +12,7 @@ const adminPage = async () => {
   const grievanceCats = await getAllGrievanceCategory();
   return (
     <div className="flex flex-col gap-6">
+      <Header />
       <StudentEdit students={students} departments={departments} />
       <DepartmentEdit departments={departments} />
       <GrievanceCat grievanceCats={grievanceCats} />h

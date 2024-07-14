@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import {
+  createGrievanceCategory,
   deleteGrievanceCategory,
   updateGrievanceCategory,
 } from "@/lib/db/category";
@@ -73,11 +74,29 @@ const GrievanceCat = (props: Props) => {
     }
   };
 
+  const Add = async () => {
+    if (
+      grievanceCat.name !== "" &&
+      !props.grievanceCats.find((grievs) => grievs.name === grievanceCat.name)
+    ) {
+      const data = {
+        id: crypto.randomUUID(),
+        name: grievanceCat.name,
+        desc: grievanceCat.desc,
+      };
+      const res = await createGrievanceCategory(data);
+      if (res) router.replace("/adminPage");
+      else alert("not able to create department");
+    }
+  };
+
   return (
     <Card className="p-4 w-[60%] mx-auto">
       <CardHeader className="text-center">
-        <CardTitle>Edit Department Info</CardTitle>
-        <CardDescription>Either Update or Delete Departments</CardDescription>
+        <CardTitle>Edit Grievance Category Info</CardTitle>
+        <CardDescription>
+          Either Update Add or Delete Grievance Category
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Select value={grievanceCatId} onValueChange={setGrievanceCatId}>
@@ -114,7 +133,7 @@ const GrievanceCat = (props: Props) => {
           <Textarea
             placeholder="Grievance Category Description"
             name="grievance-cat-desc"
-            className="w-[600px] h-[150px]"
+            className="w-[600px] h-[150px] mt-8"
             value={grievanceCat.desc}
             onChange={(e) =>
               setGrievanceCat({ ...grievanceCat, desc: e.target.value })
@@ -126,6 +145,7 @@ const GrievanceCat = (props: Props) => {
         <div className="flex justify-between w-[80%] items-center mx-auto">
           <Button onClick={Update}>Update</Button>
           <Button onClick={Delete}>Delete</Button>
+          <Button onClick={Add}>Add</Button>
         </div>
       </CardFooter>
     </Card>
