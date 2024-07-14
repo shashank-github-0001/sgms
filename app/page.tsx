@@ -5,19 +5,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { verifyLogin } from "@/lib/db/login";
-import { redirect } from "next/navigation";
 import { storeCookie } from "@/lib/db/storecookie";
+import { useRouter } from "next/navigation";
+import IsAuthed from "@/lib/auth/auth";
 
 const Main = () => {
+  const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
     const res = await verifyLogin(username as string, password as string);
-    if (res) {
+    if (res !== "admin" && res) {
       storeCookie(res);
-      redirect("/home");
+      router.replace("/home");
+    } else if (res === "admin") {
+      router.replace("/adminPage");
     } else {
-      redirect("/signup");
+      router.replace("/signup");
     }
   };
 
