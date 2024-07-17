@@ -7,9 +7,9 @@ const storeCookie = (data: Student) => {
   console.log("stored cookie", studentData);
 };
 
-const fetchCookit = (data: Student) => {
+const fetchCookie = () => {
   const studentData = JSON.parse(localStorage.getItem("user") as string);
   return studentData;
 };
 
-export { storeCookie };
+export { storeCookie, fetchCookie };

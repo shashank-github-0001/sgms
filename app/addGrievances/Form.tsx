@@ -38,6 +38,8 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
     else alert("not able to create grievance");
   };
 
+  if (isAuthed) router.push("/");
+
   return (
     <section className="w-full max-w-md mx-auto py-12 md:py-24">
       <div className="px-4 md:px-6 border shadow-sm p-8">
