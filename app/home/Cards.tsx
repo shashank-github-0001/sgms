@@ -33,7 +33,7 @@ const Cards = ({
 }) => {
   const [filterType, setFilterType] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
-  const { login, logout, isAuthed } = useAuth();
+  const { isAuthed } = useAuth();
   const router = useRouter();
 
   if (!isAuthed) {

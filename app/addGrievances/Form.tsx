@@ -14,10 +14,8 @@ import { createGrievances } from "@/lib/db/grievance";
 import { GrievanceCategory, Grievances, Status } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/auth/auth";
 
 const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
-  const { isAuthed } = useAuth();
   const router = useRouter();
   const [form, setForm] = useState<Grievances>({
     id: crypto.randomUUID() as string,
@@ -30,15 +28,12 @@ const Form = ({ catArray }: { catArray: GrievanceCategory[] }) => {
 
   const handleSubmit = async () => {
     const user = JSON.parse(localStorage.getItem("user") as string);
-    console.log(user);
     setForm({ ...form, studentId: user.id });
-    console.log(form);
     const res = await createGrievances(form);
     if (res) router.push("/home");
     else alert("not able to create grievance");
   };
 
-  if (isAuthed) router.push("/");
 
   return (
     <section className="w-full max-w-md mx-auto py-12 md:py-24">
